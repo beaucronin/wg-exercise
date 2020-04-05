@@ -1,0 +1,79 @@
+openapi: 3.0.0
+info:
+  title: Beau's Weavegrid Coding Exercise
+  description: An API that returns a list of the files in the directory specified by the request path.
+  version: 0.1.0
+paths:
+  /:
+    get:
+      summary: Return a list of the root directory's contents
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dir_list'
+        '400':
+          description: Path error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/path_error'
+                  
+  /{subpath}:
+    get:
+      summary: Return a list of a directory's contents
+      parameters:
+        - name: subpath
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dir_list'
+        '400':
+          description: Path error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/path_error'
+
+components:
+  schemas:
+    dir_list:
+      type: object
+      properties:
+        message:
+          type: string
+        local_path:
+          type: string
+          description: The absolute path on the local filesystem
+        contents:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                description: The file name
+              owner:
+                type: string
+                description: The file's owner
+              size:
+                type: integer
+                description: The file size, in bytes
+              perms:
+                type: string
+                description: The file's access permission, in octal
+    path_error:
+      type: object
+      properties:
+        message:
+          type: string
+          description: A human-readable description of the error
