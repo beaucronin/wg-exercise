@@ -11,10 +11,18 @@ print(f"Using root folder {root_dir}")
 
 @app.route("/")
 def list_root():
+    """
+    This route handles just the root of the local filesystem, since the
+    subpath route below will not match for an empty path.
+    """
     return process_path("")
 
 @app.route("/<path:subpath>", methods=["GET"])
 def list_path(subpath):
+    """
+    The main route, which uses Flask's path functionality to match the 
+    subpath to use.
+    """
     return process_path(subpath)
 
 def process_path(subpath):
