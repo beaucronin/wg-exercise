@@ -2,7 +2,7 @@
 
 ## Install and Run
 
-The server can be run locally, or as a Docker container.
+The server can be run locally, or as a Docker container. The API is documented in [`swagger.yaml`](swagger.yaml).
 
 ### Local
 
