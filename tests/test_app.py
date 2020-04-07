@@ -8,8 +8,6 @@ from server.app import app
 def client():
     app.config['TESTING'] = True
     
-    
-    
     with app.test_client() as client:
         yield client
 
@@ -36,4 +34,4 @@ def test_subdir_route(client):
 def test_perms(client):
     rv = client.get("/")
     obj = rv.get_json()
-    
+    # and so on...
